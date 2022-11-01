@@ -1,4 +1,4 @@
-# Integrador 2
+# Integrador II
 
 Projeto de um sistema de gerenciamento de presença para um tricículo.
 [README pra ajudar a entender as pastas :)]
