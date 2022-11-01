@@ -31,9 +31,44 @@ void loop() {
 
   scale.set_scale(calibration_factor); //Adjust to this calibration factor
   Serial.print("Reading: ");
+  
+  // Verifica RF1 - Balanca
+  if ((scale.get_units()*0.453592, 3) > 0) {
+    Serial.print("Atende RF1");
+  }
+  else{
+    Serial.print("Não atende RF1");  
+  }
+
+  // Verifica RNF3 - Balanca 
+  if ((scale.get_units()*0.453592, 3) >= 40)
+  {
+    Serial.print("Atende RNF3");
+  }
+  else{
+    Serial.print("Não atende RNF3");  
+  }
+
   Serial.print(scale.get_units()*0.453592, 3);
   Serial.print(" kg, Belt read: ");
   Serial.print(digitalRead(BeltRead_Pin));
+
+  // Verifica RF2 - Cinto
+  if (digitalRead(BeltRead_Pin) == 0 || digitalRead(BeltRead_Pin) == 1) {
+    Serial.print("Atende RF2");
+  }
+  else{
+    Serial.print("Não atende RF2");  
+  }
+
+  // Alerta RF8 - Balanca e Cinto 
+  if (digitalRead(BeltRead_Pin) == 1 && (scale.get_units()*0.453592, 3) > 0) {
+    Serial.print("Atende RF8");
+  }
+  else{
+    Serial.print("Não atende RF8");  
+  }
+
   Serial.println();
   delay(100);
 }
