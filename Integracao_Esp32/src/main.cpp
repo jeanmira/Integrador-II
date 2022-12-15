@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include "HX711.h"
 
-#define BeltRead_Pin 22
-#define LOADCELL_DOUT_PIN  33
-#define LOADCELL_SCK_PIN  32
+#define BeltRead_Pin 35
+#define LOADCELL_DOUT_PIN  32
+#define LOADCELL_SCK_PIN  33
 #define LED_BELT_PIN 25
 #define LED_WEIGHT_PIN 26
 #define BUZZER_PIN 27
@@ -19,14 +19,14 @@ int noteDurations[] = {
 int period = 100;
 unsigned long time_now = 0;
 
-#define WEIGHT_THRESHOLD 5
+#define WEIGHT_THRESHOLD 0.8
 
 HX711 scale;
 
 float weightRead = 0;
 bool beltRead = 0;
 
-float calibration_factor = -5450; //mais ou menos o valor para ter saida em kg
+float calibration_factor = -11450; //mais -> menor inclinacao
 
 void setup() {
   pinMode(LED_BELT_PIN, OUTPUT);
