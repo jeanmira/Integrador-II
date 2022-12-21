@@ -1,57 +1,60 @@
 /*=======================================================================//
-                                MAIN.CPP
+								MAIN.CPP
 //=======================================================================*/
 /*-----------------------------------------------------------------------//
-                           INCLUDES / DEFINES
+						   INCLUDES / DEFINES
 //-----------------------------------------------------------------------*/
 #include "PanelAux.hpp"
 #include "Spi2Can.hpp"
 #include "LoadCell.hpp"
 #include "SeatBelt.hpp"
-
 /*-----------------------------------------------------------------------//
-                                 SETUP
+								 SETUP
 //-----------------------------------------------------------------------*/
-void setup() 
+void setup()
 {
-  Serial.begin(115200);
-  Panel_setup();
-  Belt_setup();
-  LoadCell_setup(false);
-  CAN_setup(false);
+	Serial.begin(115200);
+	Panel_setup();
+	Belt_setup();
+	LoadCell_setup(false);
+	CAN_setup(false);
 }
 
 /*-----------------------------------------------------------------------//
-                                 LOOP
+								 LOOP
 //-----------------------------------------------------------------------*/
-void loop() 
+void loop()
 {
-  float leitura_peso = LoadCell_read(false);
-  bool peso_ok, cinto_ok;
-  
-  if (leitura_peso >= WEIGHT_THRESHOLD)
-    peso_ok = true;
-  else
-    peso_ok = false;
-  
-  cinto_ok = Belt_read();
+	bool peso_ok, cinto_ok;
+	float leitura_peso = LoadCell_read(false);
 
-  if (cinto_ok && peso_ok) 
-  {
-    Seat_LED_off();
-    Weight_LED_off();
-  }
-  else
-  {
-    Buzzer_sound();
-    if(!cinto_ok) Seat_LED_on();
-    if(!peso_ok)  Weight_LED_on();
-  }
+	if (leitura_peso >= WEIGHT_THRESHOLD)
+		peso_ok = true;
+	else
+		peso_ok = false;
 
-  data_att(cinto_ok, peso_ok);
-  CAN_send();
-  delay(100);
+	cinto_ok = Belt_read();
+
+	if (!cinto_ok)
+		Seat_LED_on(); // sem cinto
+	else
+		Seat_LED_off();
+
+	if (!peso_ok)
+		Weight_LED_on();
+	else
+		Weight_LED_off();
+
+	if(!cinto_ok || !peso_ok)
+		Buzzer_sound();
+	else
+		Buzzer_off();
+	
+	data_att(cinto_ok, peso_ok);
+	CAN_send();
+	delay(100);
+
 }
 /*=======================================================================//
-                                MAIN.CPP
+								MAIN.CPP
 //=======================================================================*/

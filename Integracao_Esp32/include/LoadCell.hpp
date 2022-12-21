@@ -12,7 +12,7 @@
 
 #define LOADCELL_DOUT_PIN  32
 #define LOADCELL_SCK_PIN  33
-#define WEIGHT_THRESHOLD 5
+#define WEIGHT_THRESHOLD 25
 
 /*-----------------------------------------------------------------------//
                                 FUNCOES

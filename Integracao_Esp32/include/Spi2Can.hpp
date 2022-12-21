@@ -15,7 +15,6 @@
 #define BELTREAD_PIN 35
 #define LOADCELL_DOUT_PIN  32
 #define LOADCELL_SCK_PIN  33
-#define WEIGHT_THRESHOLD 5
 
 /*-----------------------------------------------------------------------//
                                 FUNCOES

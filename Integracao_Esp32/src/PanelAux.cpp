@@ -35,6 +35,7 @@ void Panel_setup()
 //-----------------------------------------------------------------------*/
 void Buzzer_sound()
 {
+    time_now = millis();
     for (int thisNote = 0; thisNote < 2; thisNote++)
     { // MUDAR ISSO AQUI POR CAUSA DO DELAY
         int noteDuration = 1000 / noteDurations[thisNote];
@@ -42,9 +43,16 @@ void Buzzer_sound()
 
         int pauseBetweenNotes = noteDuration * 1.30;
 
-        while (millis() < time_now + pauseBetweenNotes + 10){}
-        noTone(BUZZER_PIN);
+       while (millis() < time_now + pauseBetweenNotes + 10){}
+       noTone(BUZZER_PIN);
+       
     }
+}
+
+void Buzzer_off()
+{
+    noTone(BUZZER_PIN);
+    digitalWrite(BUZZER_PIN,LOW);
 }
 
 /*-----------------------------------------------------------------------//

@@ -15,7 +15,12 @@ void Belt_setup()
 
 bool Belt_read()
 {
-    return digitalRead(BELTREAD_PIN);
+    if(digitalRead(BELTREAD_PIN) == LOW)
+    {
+        //Serial.println(digitalRead(BELTREAD_PIN));
+        return true;
+    }
+    return false;
 }
 
 /*=======================================================================//
