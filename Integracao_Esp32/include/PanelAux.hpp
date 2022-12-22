@@ -13,13 +13,12 @@
 #define LED_WEIGHT_PIN 27
 #define BUZZER_PIN 25
 #define NOTE_C5  523
-
 /*-----------------------------------------------------------------------//
                                 FUNCOES
 //-----------------------------------------------------------------------*/
 void Panel_setup();
 void Buzzer_sound();
-void Buzzer_off();
+bool is_Buzzer_on();
 void Seat_LED_on();
 void Seat_LED_off();
 void Weight_LED_on();

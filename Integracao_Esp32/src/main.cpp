@@ -47,8 +47,6 @@ void loop()
 
 	if(!cinto_ok || !peso_ok)
 		Buzzer_sound();
-	else
-		Buzzer_off();
 	
 	data_att(cinto_ok, peso_ok);
 	CAN_send();

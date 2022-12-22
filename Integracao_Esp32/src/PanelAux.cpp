@@ -15,6 +15,7 @@ const int noteDurations[] = {
 const int period = 100;
 unsigned long time_now = 0;
 
+unsigned long last_time_buzzer_on =0;
 /*-----------------------------------------------------------------------//
                             Panel_setup
 //-----------------------------------------------------------------------//
@@ -35,24 +36,33 @@ void Panel_setup()
 //-----------------------------------------------------------------------*/
 void Buzzer_sound()
 {
+
+    if (!is_Buzzer_on())
+    {
+        tone(BUZZER_PIN, NOTE_C5, 250);
+        last_time_buzzer_on = millis();
+    }
+    
+/*
     time_now = millis();
     for (int thisNote = 0; thisNote < 2; thisNote++)
     { // MUDAR ISSO AQUI POR CAUSA DO DELAY
         int noteDuration = 1000 / noteDurations[thisNote];
         tone(BUZZER_PIN, melody[thisNote], noteDuration);
 
+
         int pauseBetweenNotes = noteDuration * 1.30;
 
        while (millis() < time_now + pauseBetweenNotes + 10){}
        noTone(BUZZER_PIN);
        
-    }
+    }*/
 }
 
-void Buzzer_off()
+bool is_Buzzer_on()
 {
-    noTone(BUZZER_PIN);
-    digitalWrite(BUZZER_PIN,LOW);
+    if(millis() - last_time_buzzer_on < 500)    return true;
+    return false;
 }
 
 /*-----------------------------------------------------------------------//
